@@ -65,7 +65,7 @@ func main() {
 
 	var credFile string
 	if os.Getenv("USER") == "Knight-of-Skyrim" {
-		credFile = "./credFileLocal.json"
+		credFile = "./json/credFileLocal.json"
 	} else {
 		if saveJson() == 1 {
 			log.Fatal("could not creat json file")
