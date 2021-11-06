@@ -24,10 +24,6 @@ func saveJson() int {
 func main() {
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*")
-	/*
-		store := sessions.NewCookieStore([]byte("secret"))
-		router.Use(sessions.Sessions("session", store))
-	*/
 
 	//URL コントローラー的な
 	router.GET("/index", func(c *gin.Context) {
@@ -81,6 +77,9 @@ func main() {
 	sessionName := "goquestsession"
 	google.Setup(redirectURL, credFile, scopes, secret)
 	router.Use(google.Session(sessionName))
+
+	store := sessions.NewCookieStore([]byte("secret"))
+	router.Use(sessions.Sessions(sessionName, store))
 
 	var port string
 	if os.Getenv("USER") == "Knight-of-Skyrim" {
