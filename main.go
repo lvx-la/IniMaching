@@ -82,9 +82,9 @@ func main() {
 
 	var port string
 	if os.Getenv("USER") == "Knight-of-Skyrim" {
-		port = ":5000"
+		port = "5000"
 	} else {
 		port = os.Getenv("PORT")
 	}
-	router.Run(port)
+	router.Run(":" + port)
 }
