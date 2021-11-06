@@ -17,7 +17,6 @@ func saveJson() int {
 		return 1
 	}
 	defer file.Close()
-
 	file.WriteString(os.Getenv("credFile"))
 	return 0
 }
@@ -55,8 +54,8 @@ func main() {
 	private := router.Group("/auth")
 	private.Use(google.Auth())
 	private.GET("/MyPage", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.tmpl", gin.H{
-			"title": "Main website",
+		c.HTML(http.StatusOK, "myPage.tmpl", gin.H{
+			"title": "myPage",
 		})
 	})
 
