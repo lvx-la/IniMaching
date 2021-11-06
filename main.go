@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -73,7 +74,19 @@ func main() {
 		} else {
 			credFile = "./credFile.json"
 			fmt.Println("ELSE")
-			fmt.Println(credFile)
+			f, err := os.Open(credFile)
+			if err != nil {
+				fmt.Println("error")
+			}
+			defer f.Close()
+
+			// 一気に全部読み取り
+			b, err := ioutil.ReadAll(f)
+			if err != nil {
+				fmt.Println("error")
+			}
+			// 出力
+			fmt.Println(string(b))
 		}
 	}
 	scopes := []string{
