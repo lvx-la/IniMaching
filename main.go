@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -68,8 +69,10 @@ func main() {
 	} else {
 		if saveJson() == 1 {
 			log.Fatal("could not creat json file")
+			fmt.Println("TRUE")
 		} else {
 			credFile = "./credFile.json"
+			fmt.Println("ELSE")
 		}
 	}
 	scopes := []string{
