@@ -73,6 +73,7 @@ func main() {
 		} else {
 			credFile = "./credFile.json"
 			fmt.Println("ELSE")
+			fmt.Println(credFile)
 		}
 	}
 	scopes := []string{
