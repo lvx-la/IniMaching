@@ -1,8 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -26,8 +24,10 @@ func saveJson() int {
 func main() {
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*")
-	store := sessions.NewCookieStore([]byte("secret"))
-	router.Use(sessions.Sessions("session", store))
+	/*
+		store := sessions.NewCookieStore([]byte("secret"))
+		router.Use(sessions.Sessions("session", store))
+	*/
 
 	//URL コントローラー的な
 	router.GET("/index", func(c *gin.Context) {
@@ -70,23 +70,8 @@ func main() {
 	} else {
 		if saveJson() == 1 {
 			log.Fatal("could not creat json file")
-			fmt.Println("TRUE")
 		} else {
 			credFile = "./credFile.json"
-			fmt.Println("ELSE")
-			f, err := os.Open(credFile)
-			if err != nil {
-				fmt.Println("error")
-			}
-			defer f.Close()
-
-			// 一気に全部読み取り
-			b, err := ioutil.ReadAll(f)
-			if err != nil {
-				fmt.Println("error")
-			}
-			// 出力
-			fmt.Println(string(b))
 		}
 	}
 	scopes := []string{
