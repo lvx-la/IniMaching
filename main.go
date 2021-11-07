@@ -25,6 +25,10 @@ func main() {
 	router := gin.Default()
 	router.LoadHTMLGlob("templates/*")
 
+	sessionName := "goquestsession"
+	store := sessions.NewCookieStore([]byte("secret"))
+	router.Use(sessions.Sessions(sessionName, store))
+
 	//URL コントローラー的な
 	router.GET("/index", func(c *gin.Context) {
 		session := sessions.Default(c)
@@ -74,12 +78,8 @@ func main() {
 		"https://www.googleapis.com/auth/userinfo.email",
 	}
 	secret := []byte("secret")
-	sessionName := "goquestsession"
 	google.Setup(redirectURL, credFile, scopes, secret)
 	router.Use(google.Session(sessionName))
-
-	store := sessions.NewCookieStore([]byte("secret"))
-	router.Use(sessions.Sessions(sessionName, store))
 
 	var port string
 	if os.Getenv("USER") == "Knight-of-Skyrim" {
